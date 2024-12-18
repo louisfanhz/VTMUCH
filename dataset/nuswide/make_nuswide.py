@@ -12,7 +12,7 @@ lab_path = 'all_labels.txt'
 tag_list_filename = 'Concepts/TagList1k.txt'
 
 # TODO change this to the directory that contains all images for the corresponding dataset
-img_root_path = "/home/mnt_TestIdea/dataset/nuswide/images"
+img_root_path = "./dataset/nuswide/images"
 
 '''
 ####################### tags 1000 #######################

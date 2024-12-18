@@ -11,8 +11,8 @@ lab_path = 'all_labels.txt'
 
 tag_list_filename = 'Concepts/TagList.txt'
 
-# TODO change this to the directory that contains all images for the corresponding dataset
-img_root_path = "/mnt/c/Users/fanlu/OneDrive/Desktop/Study_and_Job/CMH Research/DSPH/dataset/flickr25k/images"
+# TODO change this to the absolute path of the directory that contains all images for the corresponding dataset
+img_root_path = "./dataset/flickr25k/images"
 
 '''
 ####################### tags 1386 #######################
