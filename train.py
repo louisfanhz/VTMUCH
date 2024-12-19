@@ -5,6 +5,7 @@ import torch.nn.functional as F
 import numpy as np
 from tqdm import tqdm
 import json
+import scipy.io as scio
 
 from optimization import BertAdam
 from load_data import generate_dataset
@@ -100,7 +101,11 @@ class Train:
     def _init_model(self):
         self.logger.info("initializing model...")
 
-        self.model = VTMUCH(self.args, self.train_loader).to(self.rank).float()
+        self.model = VTMUCH(self.args, self.train_loader).to(self.rank)
+        if self.args.pretrained != "" and os.path.exists(self.args.pretrained):
+            self.logger.info(f"loading pretrained model at {self.args.pretrained}")
+            self.model.load_state_dict(torch.load(self.args.pretrained, map_location=f"cuda:{self.rank}"))
+        self.model.float()
 
         self.optimizer = BertAdam(
             [
@@ -123,6 +128,31 @@ class Train:
         else:
             self.test()
 
+    def save_mat(self, query_img, query_txt, retrieval_img, retrieval_txt):
+        save_dir = os.path.join(self.args.save_dir, "PR_curve")
+        os.makedirs(save_dir, exist_ok=True)
+
+        query_img = query_img.cpu().detach().numpy()
+        query_txt = query_txt.cpu().detach().numpy()
+        retrieval_img = retrieval_img.cpu().detach().numpy()
+        retrieval_txt = retrieval_txt.cpu().detach().numpy()
+        query_labels = self.query_labels.cpu().detach().numpy()
+        retrieval_labels = self.retrieval_labels.cpu().detach().numpy()
+
+        result_dict = {
+            'q_img': query_img,
+            'q_txt': query_txt,
+            'r_img': retrieval_img,
+            'r_txt': retrieval_txt,
+            'q_l': query_labels,
+            'r_l': retrieval_labels
+        }
+
+        scio.savemat(
+            os.path.join(save_dir, f"VTMUCH-" + self.args.dataset + "-" + str(self.args.k_bits) + ".mat"),
+            result_dict)
+        self.logger.info(f">>>>>> saved best *.mat data!")
+
     def test(self):
         if self.args.pretrained == "" or self.args.pretrained == "MODEL_PATH":
             self.logger.error("test step must load a model! please set the --pretrained argument.")
@@ -134,10 +164,12 @@ class Train:
         r_i, r_t = self.get_code(self.retrieval_loader, self.args.retrieval_num)
 
         _k_ = None
-        mAPi2t = calc_mAP_k(q_i.to(self.device), r_t.to(self.device), self.query_labels.to(self.device),
-                            self.retrieval_labels.to(self.device), _k_).item()
-        mAPt2i = calc_mAP_k(q_t.to(self.device), r_i.to(self.device), self.query_labels.to(self.device),
-                            self.retrieval_labels.to(self.device), _k_).item()
+        mAPi2t = calc_mAP_k(q_i.to(self.rank), r_t.to(self.rank), self.query_labels.to(self.rank),
+                            self.retrieval_labels.to(self.rank), _k_).item()
+        mAPt2i = calc_mAP_k(q_t.to(self.rank), r_i.to(self.rank), self.query_labels.to(self.rank),
+                            self.retrieval_labels.to(self.rank), _k_).item()
+        
+        self.save_mat(q_i, q_t, r_i, r_t)
 
         self.logger.info(f"MAP(i->t): {round(mAPi2t, 5)}, MAP(t->i): {round(mAPt2i, 5)}")
         self.logger.info(">>>>>> Save *.mat data! Exit...")

@@ -184,20 +184,21 @@ class VTMUCH(nn.Module):
         self.imgNet = ImgNet(self.args.k_bits, self.args.embed_dim).to(args.rank).float()
         self.txtNet = TxtNet(self.args.k_bits, self.args.embed_dim).to(args.rank).float()
 
-        self.object_detection = ObjectDetection(args, self._clip_infer, train_loader)
+        if self.args.is_train:
+            self.object_detection = ObjectDetection(args, self._clip_infer, train_loader)
 
-        self.obj_img_features = self.object_detection.get_obj_clip_features() 
+            self.obj_img_features = self.object_detection.get_obj_clip_features() 
 
-        self.img_objs_clusters = self._make_clusters(torch.cat(list(self.obj_img_features.values()), dim=0)) # ~6secs
+            self.img_objs_clusters = self._make_clusters(torch.cat(list(self.obj_img_features.values()), dim=0)) # ~6secs
 
-        with torch.no_grad():
-            self.all_imgs_embed, SI_cont, self.ST, self.SI, self.SF = self._preprocess(train_loader)
+            with torch.no_grad():
+                self.all_imgs_embed, SI_cont, self.ST, self.SI, self.SF = self._preprocess(train_loader)
 
-        self.SF_comm, self.pseudo_labels, _ = self._recnstrc(self.SF)
+            self.SF_comm, self.pseudo_labels, _ = self._recnstrc(self.SF)
 
-        ### densify hash centers by placing one new center between every two old centers ###
-        _, _, self.SF_re = self._get_more_centers(self.all_imgs_embed, self.pseudo_labels)
-        self.SF = self._refine_SF(self.SF, self.SF_re, SI_cont)
+            ### densify hash centers by placing one new center between every two old centers ###
+            _, _, self.SF_re = self._get_more_centers(self.all_imgs_embed, self.pseudo_labels)
+            self.SF = self._refine_SF(self.SF, self.SF_re, SI_cont)
 
     def set_train(self):
         self._clip.train()
