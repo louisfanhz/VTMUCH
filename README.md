@@ -12,7 +12,7 @@ then run "python make_mirflickr25k.py" within flickr25k directory <br /><br />
 put the downloaded CLIP weights ViT-B-32.pt under "./cache" <br /><br />
 
 to reproduce experiment use: <br />
-python main.py --is-train --valid-freq=1 --epochs=20 --n-clusters=14 --dataset=flickr25k --k-bits=32 --batch-size=128 --detection-score=0.3 --si-std=1.1 <br /><br />
+python main.py --is-train --valid-freq=1 --epochs=20 --n-clusters=14 --dataset=flickr25k --k-bits=16 --batch-size=128 --detection-score=0.3 --si-std=1.1 <br /><br />
 
 to test model and save hash codes please use: <br />
 python main.py --pretrained=model_path --k-bits=16 --dataset=flickr25k <br />
