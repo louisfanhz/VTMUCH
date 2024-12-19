@@ -247,15 +247,15 @@ class Train:
         BT_BT = txt_hash.mm(txt_hash.T)
         BI_BT = img_hash.mm(txt_hash.T)
 
-        sim_preservation_loss = 0.1*F.mse_loss(BT_BT, self.args.k_bits * SF) + \
-                                0.9*F.mse_loss(BI_BI, self.args.k_bits * SF) + \
+        sim_preservation_loss = self.args.rho * F.mse_loss(BT_BT, self.args.k_bits * SF) + \
+                                (1 - self.args.rho) * F.mse_loss(BI_BI, self.args.k_bits * SF) + \
                                 F.mse_loss(BI_BT, self.args.k_bits * SF)
         ALL_LOSS['sim_preservation_loss'] = sim_preservation_loss
 
         semantic_alignment_loss = F.mse_loss(BI_BI, BT_BT) + \
                                   F.mse_loss(BI_BT, BI_BI) + \
                                   F.mse_loss(BI_BT, BT_BT)
-        ALL_LOSS['semantic_alignment_loss'] = semantic_alignment_loss
+        ALL_LOSS['semantic_alignment_loss'] = self.args.alpha * semantic_alignment_loss
 
         return ALL_LOSS
     
