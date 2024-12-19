@@ -4,10 +4,11 @@ use a virtual environment
 
 please intall dependencies as: <br />
 pip install torch==2.4.1 torchvision==0.19.1 tensorrt ftfy mmdet openmim cdlib leidenalg
-mim install mmcv==2.1.0
+mim install mmcv==2.1.0 <br /><br />
 
-please unzip the flickr25k images to "./VTMUCH/dataset/flickr25k"
-then run "python make_mirflickr25k.py" within flickr25k directory
+please unzip the flickr25k images to "./VTMUCH/dataset/flickr25k" <br />
+then run <br />
+"python make_mirflickr25k.py" within flickr25k directory
 
 to reproduce experiment use:
 python main.py --is-train --valid-freq=1 --epochs=20 --n-clusters=14 --dataset=flickr25k --k-bits=32 --batch-size=128 --detection-score=0.3 --si-std=1.1
