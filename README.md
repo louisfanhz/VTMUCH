@@ -9,6 +9,8 @@ mim install mmcv==2.1.0 <br /><br />
 please unzip the flickr25k images to "./VTMUCH/dataset/flickr25k" <br />
 then run "python make_mirflickr25k.py" within flickr25k directory <br /><br />
 
+put the downloaded CLIP weights ViT-B-32.pt under "./cache" <br /><br />
+
 to reproduce experiment use: <br />
 python main.py --is-train --valid-freq=1 --epochs=20 --n-clusters=14 --dataset=flickr25k --k-bits=32 --batch-size=128 --detection-score=0.3 --si-std=1.1 <br /><br />
 
