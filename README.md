@@ -2,7 +2,7 @@
 
 use a virtual environment
 
-please intall dependencies as:
+please intall dependencies as: \n
 pip install torch==2.4.1 torchvision==0.19.1 tensorrt ftfy mmdet openmim cdlib leidenalg
 mim install mmcv==2.1.0
 
