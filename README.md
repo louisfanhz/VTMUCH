@@ -25,7 +25,8 @@ conda env create --file=environment.yaml
 cd ./VTMUCH/dataset/flickr25k
 python make_mirflickr25k.py
 ```
-3. Download CLIP weights (ViT-B-32.pt) and place them in the `./cache` directory
+3. Download CLIP weights (ViT-B-32.pt) from the following link and place them in the `./cache` directory:
+https://drive.google.com/file/d/1KRCPSx0-wZLUIkb1ru1laLioexL2Efuk/view?usp=sharing
 
 ## Usage
 
