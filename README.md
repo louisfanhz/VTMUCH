@@ -11,7 +11,7 @@ Experimental result of VTMUCH:
 
 ## Installation
 
-1. Create and activate a conda virtual environment from environment.yaml
+1. Create and activate a [conda](https://www.anaconda.com/docs/getting-started/miniconda/main) virtual environment from environment.yaml
 ```bash
 conda env create --file=environment.yaml
 ```
