@@ -11,8 +11,12 @@ Experimental result of VTMUCH:
 
 ## Installation
 
-1. Create and activate a virtual environment
-2. Install dependencies:
+1. Create and activate a conda virtual environment from environment.yaml
+```bash
+pip install torch==2.4.1 torchvision==0.19.1 ftfy mmdet openmim cdlib leidenalg
+mim install mmcv==2.1.0
+```
+3. Install dependencies:
 ```bash
 pip install torch==2.4.1 torchvision==0.19.1 ftfy mmdet openmim cdlib leidenalg
 mim install mmcv==2.1.0
