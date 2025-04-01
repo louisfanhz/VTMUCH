@@ -19,11 +19,19 @@ conda env create --file=environment.yaml
 
 ## Setup
 
-1. Download and unzip the Flickr25K dataset to `./VTMUCH/dataset/flickr25k`
-2. Run the dataset preparation script:
+1. The datasets used in VTMUCH follow official releases of FLICKR25K and NUWIDE. You can also download the datsets manually with the following links:
+   
+    FLICKR25K: https://drive.google.com/drive/folders/16_n_afpLz2q9R_BTL_FAJaZF5sjTnI5a?usp=sharing
+   
+    NUSWIDE: https://drive.google.com/drive/folders/1aBCP-38ZyDfgQKI2_nYmITZEFAFY0yXP?usp=sharing
+
+2. Unzip the downloaded image files to `./dataset/flickr25k` and `./dataset/nuswide`, and run the data preparation scripts
 ```bash
-cd ./VTMUCH/dataset/flickr25k
+cd ./dataset/flickr25k/
 python make_mirflickr25k.py
+
+cd ./dataset/nuswide/
+python make_nuswide.py
 ```
 3. Download CLIP weights (ViT-B-32.pt) from the following link and place them in the `./cache` directory:
 https://drive.google.com/file/d/1KRCPSx0-wZLUIkb1ru1laLioexL2Efuk/view?usp=sharing
