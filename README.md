@@ -60,12 +60,3 @@ To test the model and generate hash codes:
 python main.py --pretrained=model_path --k-bits=16 --dataset=flickr25k
 ```
 This will save the binary codes to the `./result` directory.
-
-### Evaluation
-
-To calculate Precision-Recall curves:
-```python
-draw_range = np.linspace(1, 18015, 181, dtype=int)
-precision_16_i2t, recall_16_i2t = pr_curve(result_16["r_txt"], result_16["q_img"], result_16["r_l"], result_16["q_l"], draw_range)
-precision_16_t2i, recall_16_t2i = pr_curve(result_16["r_img"], result_16["q_txt"], result_16["r_l"], result_16["q_l"], draw_range)
-```
