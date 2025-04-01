@@ -2,8 +2,11 @@
 
 This is the repo for the 2025 AAAI conference paper "Vision-guided Text Mining for Unsupervised Cross-modal Hashing with Community Similarity Quantization". 
 
-The following is the pipeline for VTMUCH:
+The following is the pipeline of VTMUCH:
+![alt text](https://github.com/louisfanhz/VTMUCH/blob/main/figs/VTMUCH_framework.jpg?raw=true)
 
+Experimental result of VTMUCH:
+![alt text](https://github.com/louisfanhz/VTMUCH/blob/main/figs/VTMUCH_exp_results.jpg?raw=true)
 
 
 ## Installation
