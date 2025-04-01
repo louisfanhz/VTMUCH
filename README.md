@@ -40,7 +40,7 @@ https://drive.google.com/file/d/1KRCPSx0-wZLUIkb1ru1laLioexL2Efuk/view?usp=shari
 
 ### Training
 
-To train the model:
+Below is an example command to run the training pipeline of VTMUCH. Here we are training with 0.3 threshold score for object detection, 14 KMeans clusters for detected objects, and 1.1 standard deviation cutoff for S_I matrix construction. For more detail, please refer to our original paper.
 ```bash
 python main.py --is-train \
     --valid-freq=1 \
