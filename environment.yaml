@@ -1,0 +1,18 @@
+name: vtmuch
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11.11
+  - pip
+  - pip:
+    - torch
+    - torchvision
+    - scipy
+    - scikit-learn
+    - tqdm
+    - cdlib
+    - leidenalg
+    - networkx
+    - ftfy
+    - regex
